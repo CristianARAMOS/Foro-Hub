@@ -1,13 +1,18 @@
 package alura.cursos.foro_hub.domain.topico;
 
-import alura.cursos.foro_hub.domain.curso.DatosCurso;
-import jakarta.validation.constraints.Pattern;
+
+import jakarta.validation.constraints.NotNull;
 
 public record PostearTopico(
+        @NotNull
         String titulo,
+        @NotNull
         String mensaje,
-        String status,
-        int curso_id,
-        int usuario_id
+        @NotNull
+        Long usuario_id,
+        @NotNull
+        Long curso_id
+
+
 ) {
 }

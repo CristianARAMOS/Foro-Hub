@@ -6,7 +6,7 @@ import alura.cursos.foro_hub.domain.respuesta.Respuesta;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,13 +31,15 @@ public class Topic {
     @Enumerated(EnumType.STRING)
     private Estado status;
 
-    private int usuario_id;
+    private Long usuario_id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "curso_id")
-    private int curso_id;
+    private boolean activo;
 
-    @OneToMany(mappedBy = "topico")
+    @ManyToOne
+    @JoinColumn(name = "curso")
+    private Curso curso;
+
+    @OneToMany(mappedBy = "topico",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Respuesta> respuestas;
 
     public Topic(PostearTopico postearTopico) {
@@ -45,6 +47,7 @@ public class Topic {
         this.mensaje=postearTopico.mensaje();
         this.fechaCreacion =  LocalDateTime.now();
         this.status = Estado.N0RESUELTO;
-        this.curso_id = postearTopico.curso_id();
+        this.activo = true;
+
     }
 }

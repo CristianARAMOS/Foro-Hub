@@ -1,8 +1,5 @@
 package alura.cursos.foro_hub.domain.topico;
 
-import alura.cursos.foro_hub.domain.respuesta.DtoRespuesta;
-
-import java.time.LocalDate;
 
 public record DtoRespuestaTopico(
         Long id,
@@ -10,7 +7,13 @@ public record DtoRespuestaTopico(
         String mensaje,
         String fechaDeCreacion,
         String status,
-        int curso
+        String curso
+
 
 ) {
+    public DtoRespuestaTopico(Topic topic) {
+        this(topic.getId(),topic.getMensaje(),topic.getMensaje(),topic.getFechaCreacion().toString(),topic.getStatus().toString(),topic.getCurso().getNombre());
+    }
+
+
 }

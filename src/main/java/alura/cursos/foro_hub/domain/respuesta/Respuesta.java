@@ -4,7 +4,7 @@ import alura.cursos.foro_hub.domain.topico.Topic;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -21,13 +21,20 @@ public class Respuesta {
 
     private String mensaje;
     @ManyToOne
-    @JoinColumn(name = "topico_id")
+    @JoinColumn(name = "topico")
     private Topic topico;
 
     private LocalDateTime fechaCreacion;
 
-    private String autor;
+    private   Long usuario;
 
-    private Boolean solucion;
+    private   Boolean activo;
 
+    public Respuesta(PostearRespuestaDto postearRespuestaDto) {
+        this.mensaje = postearRespuestaDto.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
+        this.usuario = postearRespuestaDto.id();
+        this.activo = true;
+    }
 }
+
